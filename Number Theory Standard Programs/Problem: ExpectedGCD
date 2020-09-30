@@ -1,0 +1,74 @@
+// this program took 5 secs in our pc but took exactly 1 sec in the codechef ide!
+// a number can have at max 240 divisors (Highly composite number)
+#include<bits/stdc++.h>
+#define ll long long
+#define vi vector<int>
+#define pii pair<int,int>
+#define pb push_back
+
+using namespace std;
+const int N=2e5+10;
+const int mod=1e9+7;
+
+void EE(int aa, int bb, int& xx, int& yy){if(aa%bb == 0){xx=0,yy=1;return;}
+EE(bb,aa%bb,xx,yy);int t = xx;xx = yy;yy = t - yy*(aa/bb);}
+int mmi(int aa){int xx,yy;EE(aa,mod,xx,yy);xx = (xx+mod)%mod;return xx;}
+
+int n,q,k;
+int nck[N],res[N];
+
+
+vi divs[N];
+void seive(){
+    divs[1].push_back(1);
+    for(int i=2;i<N;i++){
+        for(int j=1;j*j<=i;j++) {
+            if(i%j==0) divs[i].push_back(j),divs[i].push_back(i/j);
+            if(j*j==i) divs[i].pop_back();
+        }
+        sort(divs[i].rbegin(),divs[i].rend());
+    }
+}
+
+void build(){
+    seive();
+    k--;
+    nck[k]=1;
+    for(int i=k+1;i<N;i++) {
+        nck[i]= (1LL*nck[i-1]*i)%mod;
+        nck[i]= (1LL*nck[i]*mmi(i-k))%mod;
+    }
+    k++;
+
+    int deno=1;
+    for(int i=1;i<N;i++) {
+        res[i]=res[i-1];
+        map<int,int> mp;
+        for(auto &x:divs[i]){
+            int tot=0;
+            for(auto xx:divs[i]) if(xx!=x && xx%x==0) tot=(tot+mp[xx])%mod;
+            tot=mp[x]=(nck[(i-1)/x] +mod- tot)%mod;
+            res[i]=(res[i]+1LL*tot*x)%mod;
+        }
+        if(i<=k) continue;
+        res[i-1]=(1LL*res[i-1]*mmi(deno))%mod;
+        deno= (1LL*deno*i)%mod;
+        deno= (1LL*deno*mmi(i-k))%mod;
+    }
+}
+
+int main(){
+    cin.tie(NULL); 
+    cout.tie(NULL); 
+    ios_base::sync_with_stdio(false);
+    
+    cin>>q>>k;
+    build();
+    
+    while(q--){
+        cin>>n;
+        cout<<res[n]<<"\n";
+    }
+    
+    return 0;
+}
