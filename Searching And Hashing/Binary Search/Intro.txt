@@ -1,0 +1,142 @@
+COMPLEXITY OF BINARY Search != LOGN but logN*O(predicateFunc!)
+
+IMPLEMENTATION:
+    ------------------------------------------
+    for(endpoint, when to stop, endpoint/=2 )
+    while(when to move right) changeres
+    -------------------------------------------
+    ----Prefer while loop----------------------
+    binarySearch(lo, hi,p):
+        while(lo < hi):
+            mid =lo+ (hi-lo)/2
+            if(p(mid)): 
+                hi=mid                  //discard the left but not mid
+            else: 
+                lo=mid+1                //discard the right including mid
+        if (lo) ==false:
+            complain
+        return lo;
+        /*
+         for lo=2 and hi =3, m= lo+hi >>1 =2
+         if... lo = m XXX
+         if...  lo = m+1 CORRECT => 3,3
+         else   hi = m;  => 3,2
+        */
+
+    The TWO CRUCIAL lines:
+
+    1) to find the last true element
+                hi=mid                  //discard the left but not mid
+                lo=mid+1                //discard the right including mid
+
+    2) to find the first false element
+                hi=mid+1                //discard the left including mid
+                lo=mid                  //discard the right but not mid
+
+    3) to find the nearest
+                hi=mid
+                lo=mid
+    4) to find the number of occurences(upper bound-lower bound)
+
+        FOR THESE TYPES REMEMBER to when to terminate: 
+        -->terminate when the search space gets smaller than some predetermined bound (say 10-12) 
+        -->do a fixed number of iterations. 
+        On Topcoder, your best bet is to just use a few hundred iterations, this will give you the best possible precision without too much thinking. 100 iterations will reduce the search space to approximately 10-30 of its initial size, which should be enough for most (if not all) problems.
+        Also there can be floating point errors in (hi-lo<1e-9) so it is suggested to do iterations every time.
+        If you need to do as few iterations as possible, you can terminate when the interval gets small, but try to do a relative comparison of the bounds, not just an absolute one. The reason for this is that doubles can never give you more than 15 decimal digits of precision so if the search space contains large numbers (say on the order of billions), you can never get an absolute difference of less than 10-7.
+
+IN ALL OF THESE CASEE THERE ARE CHANCES TO GET AN INFINITE LOOP BECAUSE OF THE DIFFERENT TYPES OF THE INPUT 
+USE->
+----->mid=(lo+hi+1)/2
+----->a for loop IMPLEMENTATION
+
+
+
+Example:
+    STEP 1: yes yes yes yes no no no no no no
+            and we need to find the last yes
+    STEP 2:  2 3                     3 4
+   			 t t   					 t t
+            hi=3, lo=2 mid=2 => lo=2
+
+Remember always lo can display in the output
+---------------------------------------------------------------------------------------
+DEFINITION
+
+S(Search Space): the set of x
+p(x): A predicate for x, according to the requirement. 
+    --->It is true for the first Space and false for the second space or vice versa i.e yes followed by a series of no's.
+    --->first x for which p(x) is true or the last x for which p(x) is false.
+
+Main Theoram: Binary search can be used if and only if 
+    for all x in S, p(x)=>p(y) for all y > x. 
+
+This property is what we use when we discard the second half of the search space. It is equivalent to saying that ¬p(x) implies ¬p(y) for all y <x, which is what we use when we discard the first half of the search space.
+
+
+--------------------------------------------------------------------------------------
+
+EXAMPLE:“Is there an assignment which costs x or less?”
+    The usual traveling salesman problem (TSP) looks for the cheapest round-trip which visits every city exactly once. Here, the target value is not defined as such, but we can define a predicate “Is there a round-trip which costs x or less?” and then apply binary search to find the smallest x which satisfies the predicate. 
+    This is called reducing the original problem to a decision (yes/no) problem. Unfortunately, we know of no way of efficiently evaluating this particular predicate and so the TSP problem isn’t easily solved by binary search, but many optimization problems are.
+
+----------------------------------------------------------------------------------------
+Search a num just less than 70
+p(x): x<70
+0	5	13	19	22	41	55	68	72	81	98
+1   1   1    1  1   1   1   1   0   0   0
+last yes 68
+first no 72
+
+
+---------------------------------------------------------------------------------------
+lower bounds and upper bounds
+
+A likely answer is a closed interval which surely contains the first x for which p(x) is true. 
+NOTE:Another thing you need to be careful with is how high to set the bounds. By “high” I really mean “wide” since there are two bounds to worry about. Every so often it happens that a coder concludes during coding that the bounds he or she set are wide enough, only to find a counterexample during intermission (when it’s too late). Unfortunately, little helpful advice can be given here other than to always double- and triple-check your bounds! Also, since execution time increases logarithmically with the bounds, you can always set them higher, as long as it doesn’t break the evaluation of the predicate. Keep your eye out for overflow errors all around, especially in calculating the median.
+
+--------------------------------------------------------------------------------------
+
+LITTLE MORE NOTE:
+// warning: there is a nasty bug in this snippet!
+binary_search(lo, hi, p):
+   while lo &lt; hi:
+      mid = lo + (hi-lo)/2    // note: division truncates
+      if p(mid) == true:
+         hi = mid-1
+      else:
+         lo = mid
+          
+   if p(lo) == true:
+      complain                // p(x) is true for all x in S!
+      
+   return lo         // lo is the greatest x for which p(x) is false
+You can verify that this satisfies our condition that the element we’re looking for always be present in the interval (lo, hi). However, there is another problem. Consider what happens when you run this code on some search space for which the predicate gives:
+        no	yes
+
+---------------------------------------------------------------------------------------
+
+POPULAR MISTAKES->
+Lb Ub->
+		while(lo<=hi){
+			mid=(lo+hi)/2;
+			// >= funciton = > lower bound
+			if(cntDigits(mid)>=n) lower=mid,hi=mid-1;
+			else lo=mid+1;
+		}
+		lo=1,hi=1e9;
+		while(lo<=hi){
+			mid=(lo+hi)/2;
+			// > function = > upper bound
+			if(cntDigits(mid)>n) upper=mid,hi=mid-1;
+			else lo=mid+1;
+		}
+		cout<<upper-lower<<"\n";
+
+Make sure at end lo/hi value is returned correctly
+
+Consider the border case when lo will remain the same and hi will remain the same
+
+for best res always take res as another var
+
+have a loop for double vals
