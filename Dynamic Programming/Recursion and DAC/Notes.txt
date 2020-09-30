@@ -1,0 +1,9 @@
+Backtracking is a fundamental concept essential to solve many problems in computer science. Many NP-hard problems require use of backtracking. Almost all problems, which require use of backtracking are inherently recursive in nature. You will encounter many problems, specially in graph theory, which require backtracking. If not impossible, it would be really hard to solve those problems without recursion. 
+Though recursion is a powerful concept, it also brings in its own set of challenges as the input size becomes larger. In many recursive backtracking programs, there are huge number of recursive calls made for same set of input values again and again. 
+
+
+
+To optimize this, we can cache the solution to recursive calls for specific input values and reuse those if we encounter those input values again. This concept of remembering and reuse of the solution for a specific set of input values is called Memoization. This technique of using memoization for optimizing programs using backtracking is nothing but Dynamic programming
+
+
+

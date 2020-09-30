@@ -1,0 +1,16 @@
+https://codeforces.com/contest/620/problem/E
+https://codeforces.com/contest/1110/problem/F
+https://codeforces.com/contest/461/problem/B
+https://www.hackerearth.com/challenge/competitive/march-clash-15/algorithm/counting-on-tree-1/description/
+https://ioinformatics.org/?note=old-site
+https://www.iarcs.org.in/inoi/online-study-material/problems/rivers.php
+https://www.iarcs.org.in/inoi/online-study-material/problems/coffee-shop.php
+https://www.iarcs.org.in/inoi/online-study-material/problems/mobiles-apio.php
+http://acm.timus.ru/problem.aspx?space=1&num=1018
+https://inoi15.discuss.codechef.com/questions/60948/can-anyone-teach-me-dp-on-trees-with-the-help-of-solving-this-question
+https://www.hackerrank.com/challenges/tree-pruning/problem
+http://www.main.edu.pl/
+https://codeforces.com/contest/440/problem/D
+https://codeforces.com/blog/entry/13354
+https://codeforces.com/blog/entry/20935
+https://codeforces.com/contest/699/problem/D
