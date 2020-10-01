@@ -1,0 +1,17 @@
+bool check(Node * root,long long int min,long long int max){
+    if(root==NULL){
+        return 1;
+    }
+    if(root->data<=min || root->data>=max){
+        return 0;
+    }
+    return check(root->left,min,root->data) && check(root->right,root->data,max);
+}
+bool isBST(Node* root) {
+   if(root==NULL){
+       return 1;
+   }
+   long long min=-214748364885858;
+        long long max=214748364885858;
+   return check(root,min,max);
+}
