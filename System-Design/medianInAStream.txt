@@ -1,0 +1,7 @@
+PROBLEM: Median of 1e9 doubles from 1000 Machines
+Think of: Space Req, Time Complexity and Newtork Calls
+-> Simple Merge Sort-> Not Acceptable, since merging to One machine will take a lot of newtork calls
+-> Use Binary Search => logN 100*(1000 Reads/Calls) 1 call per machine
+-> Approximate algo: Divide the median into blocks [total 1e7 blocks],
+    get an approximation of the range in which the median might lie(If distribution is equal)
+    Then in About 1000*2 calls I can get the median and, very fast
