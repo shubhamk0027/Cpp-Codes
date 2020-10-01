@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to remove the odd
+// indexed characters from a given string
+
+string removeOddIndexCharacters(string s)
+{
+
+	// Stores the resultant string
+	string new_string = "";
+
+	for (int i = 0; i < s.length(); i++) {
+
+		// If current index is odd
+		if (i % 2 == 1) {
+
+			// Skip the character
+			continue;
+		}
+
+		// Otherwise, append the
+		// character
+		new_string += s[i];
+	}
+
+	// Return the result
+	return new_string;
+}
+
+// Driver Code
+int main()
+{
+	string str = "abcdef";
+
+	// Function call
+	cout << removeOddIndexCharacters(str);
+
+	return 0;
+}
